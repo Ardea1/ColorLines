@@ -1,18 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Cell : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private Color highlightedColor;
+
+    private Renderer renderer;
+
+    private Color originalColor;
+
+    /// <summary>
+    /// Метод, чтобы выбранная нами клетка, куда следует переместить шарик,
+    /// меняла цвет
+    /// </summary>
+    public void Highlight(bool highlighted)
     {
-        
+        renderer.material.color = highlighted ? highlightedColor : originalColor;
     }
 
-    // Update is called once per frame
+    // Start вызывается перед обновлением первого кадра 
+    void Start()
+    {
+        renderer = GetComponent<Renderer>();
+        originalColor = renderer.material.color;
+    }
+
+    // Обновление вызывается один раз за кадр 
     void Update()
     {
-        
+
     }
 }
