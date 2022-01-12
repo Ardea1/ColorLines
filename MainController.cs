@@ -9,6 +9,9 @@ public class MainController : MonoBehaviour
     [SerializeField]
     private Selector selector;
 
+    [SerializeField]
+    private SceneUI sceneUI;
+
     private StepData stepData;
 
     /// <summary>
@@ -44,7 +47,7 @@ public class MainController : MonoBehaviour
         // Отключаем подсветку клетки
         stepData.Cell.Highlight(false);
 
-        var destroyed = grid.DestroyLines(stepData.Cell.transform.position);
+        sceneUI.Points.Value += grid.DestroyLines(stepData.Cell.transform.position);
 
         grid.Generate(3);
     }
