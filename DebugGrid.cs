@@ -332,7 +332,7 @@ public class DebugGrid : MonoBehaviour
     {
         HashSet<Vector2Int> line = new HashSet<Vector2Int>();
 
-        for (int i = 0; i < SIZE; i++)
+        for (int i = 0; i < SIZE * SIZE; i++)
         {
             int x = pos.x + i * dx;
             int y = pos.y + i * dy;
@@ -391,9 +391,10 @@ public class DebugGrid : MonoBehaviour
             // Проверяем, состоит ли линия из пяти и более одинаковых шаров,
             // объединяем линию и удаляем если состоит
             if (line.Count >= 5)
+             
                 destroyed.UnionWith(line);
 
-            line.Clear();
+                line.Clear();
         }
         
         // Получаем все сферы
@@ -407,17 +408,33 @@ public class DebugGrid : MonoBehaviour
             // то удаляем эти сферы  
             if (destroyed.Contains(spherePos))
             {
-                Destroy(sphere.gameObject);
+                sphere.Destroy();
 
                 // Обнуляем клетку там, где мы удалили сферу
                 cells[spherePos.x, spherePos.y] = CellType.Empty;
-
-
             }
+        }
+        if (destroyed.Count > 0)
+        {
+
+        }
+        else
+        {
+            Sphere_Generate();
         }
 
         // Возвращаем количество уничтоженных сфер для подсчёта очков
         return destroyed.Count;
+    }
+
+
+    /// <summary>
+    /// Метод, который мы вызываем, когда
+    /// линия не удалена
+    /// </summary>
+    private void Sphere_Generate()
+    {
+        Generate(3);
     }
 
     /// <summary>

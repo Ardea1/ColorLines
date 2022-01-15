@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Sphere : MonoBehaviour
 {
@@ -10,51 +11,26 @@ public class Sphere : MonoBehaviour
     public event System.Action<Sphere> OnMoveComplete;
 
     /// <summary>
-    /// Путь сферы
-    /// </summary>
-    private List<Vector3> path;
-
-    /// <summary>
-    /// Текущий индекс
-    /// </summary>
-    private int index;
-
-    /// <summary>
-    /// Метод, показывающий движение шарика
-    /// </summary>
-    private IEnumerator Move()
-    {
-        while (index != path.Count)
-        {
-            transform.position = path[index];
-
-            yield return new WaitForSeconds(0.10f);
-
-            index++;
-        }
-
-        OnMoveComplete?.Invoke(this);
-    }
-
-    /// <summary>
     /// Метод для движения шарика
     /// </summary>
     public void Move(List<Vector3> path)
     {
-        this.path = path;
-        index = 0;
+        transform.DOPath(path.ToArray(), path.Count * 0.15f).OnComplete(() => OnMoveComplete?.Invoke(this));
+    }
 
-        StartCoroutine(Move());
+    /// <summary>
+    /// Метод для отображения удаления линии
+    /// </summary>
+    public void Destroy()
+    {
+        transform.DOScale(0.1f, 0.25f).OnComplete(() =>
+        {
+            GameObject.Destroy(gameObject);
+        });
     }
 
     // Start is called before the first frame update
     void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
     {
 
     }

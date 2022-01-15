@@ -47,9 +47,15 @@ public class MainController : MonoBehaviour
         // Отключаем подсветку клетки
         stepData.Cell.Highlight(false);
 
+        // Показываем количество набранных очков
         sceneUI.Points.Value += grid.DestroyLines(stepData.Cell.transform.position);
 
-        grid.Generate(3);
+        // если шарики не могут сгенерироваться,
+        // значит, игрок проиграл
+        if (grid.Generate(0) == 0)
+        {
+            
+        }
     }
 
     /// <summary>
