@@ -63,7 +63,7 @@ public class DebugGrid : MonoBehaviour
     /// <summary>
     /// Список пустых клеток.
     /// </summary>
-    private List<Vector2Int> GetEmptyCoords()
+    public List<Vector2Int> GetEmptyCoords()
     {
         var emptyCoords = new List<Vector2Int>();
 
@@ -443,13 +443,10 @@ public class DebugGrid : MonoBehaviour
     public void Clear()
     {
         cells = new CellType[SIZE, SIZE];
+        var list = GameObject.FindObjectsOfType<Sphere>().ToList();
+        foreach (var item in list)
+        {
+            GameObject.Destroy(item.gameObject);
+        }
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-
 }

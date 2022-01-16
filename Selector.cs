@@ -10,9 +10,11 @@ public class Selector : MonoBehaviour
 
     public event System.Action<Sphere, Cell> OnSelected;
 
-
     [SerializeField]
     private Camera camera;
+
+    [SerializeField]
+    private UnityEngine.EventSystems.EventSystem eventSystem;
 
     /// <summary>
     /// Выделенный шарик

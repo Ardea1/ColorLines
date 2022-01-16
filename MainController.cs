@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MainController : MonoBehaviour
@@ -51,10 +52,10 @@ public class MainController : MonoBehaviour
         sceneUI.Points.Value += grid.DestroyLines(stepData.Cell.transform.position);
 
         // если шарики не могут сгенерироваться,
-        // значит, игрок проиграл
-        if (grid.Generate(0) == 0)
+        // значит, игрок проиграл и игра перезагружается
+        if (grid.GetEmptyCoords().Count == 0)
         {
-            
+            NewGame();
         }
     }
 
@@ -87,22 +88,60 @@ public class MainController : MonoBehaviour
         }
     }
 
+    // Пишем функционал кнопок
+    private void MainMenu_OnClick(MainMenu.ButtonType buttonType)
+    {
+        switch (buttonType)
+        {
+            case MainMenu.ButtonType.New:
+                NewGame();
+                break;
+
+            case MainMenu.ButtonType.Help:
+                sceneUI.MainMenu.ActiveHelpPanel = true;
+                selector.Locked = true;
+                break;
+
+            case MainMenu.ButtonType.Ok:
+                sceneUI.MainMenu.ActiveHelpPanel = false;
+                selector.Locked = false;
+                break;
+
+            case MainMenu.ButtonType.Info:
+                sceneUI.MainMenu.ActiveInfoPanel = true;
+                selector.Locked = true;
+                break;
+
+            case MainMenu.ButtonType.Ok1:
+                sceneUI.MainMenu.ActiveInfoPanel = false;
+                selector.Locked = false;
+                break;
+
+            case MainMenu.ButtonType.Exit:
+                Application.Quit();
+                break;
+
+
+        }
+    }
+
+    private void NewGame()
+    {
+        grid.Clear();
+        grid.Generate(3);
+        sceneUI.Points.Value = 0;
+        sceneUI.MainMenu.ActiveHelpPanel = false;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         // Подписываемся на событие
         selector.OnSelected += Selector_OnSelected;
 
-        grid.Clear();
-        grid.Generate(3);
-    }
+        sceneUI.MainMenu.OnClick += MainMenu_OnClick;
 
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        NewGame();
     }
 }
 

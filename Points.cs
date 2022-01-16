@@ -30,12 +30,6 @@ public class Points : MonoBehaviour
     void Start()
     {
         Value = 0;
-        TextPlayerPoints.text = "Очки игрока:";
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        TextPlayerPoints.text = "Очки:";
     }
 }

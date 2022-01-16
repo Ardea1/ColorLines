@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SceneUI : MonoBehaviour
-{
+{ 
+    [SerializeField]
+    private MainMenu mainMenu;
+
     [SerializeField]
     private Points points;
 
@@ -19,15 +22,15 @@ public class SceneUI : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public MainMenu MainMenu
     {
-        
-    }
+        get
+        {
+            return mainMenu;
+        }
+        set
+        {
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        }
     }
 }

@@ -25,12 +25,4 @@ public class Number : MonoBehaviour
             Image.color = value;
         }
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-
 }

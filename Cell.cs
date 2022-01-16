@@ -24,10 +24,4 @@ public class Cell : MonoBehaviour
         renderer = GetComponent<Renderer>();
         originalColor = renderer.material.color;
     }
-
-    // Обновление вызывается один раз за кадр 
-    void Update()
-    {
-
-    }
 }
