@@ -91,6 +91,8 @@ public class MainController : MonoBehaviour
     // Пишем функционал кнопок
     private void MainMenu_OnClick(MainMenu.ButtonType buttonType)
     {
+        GameState state = null;
+
         switch (buttonType)
         {
             case MainMenu.ButtonType.New:
@@ -119,6 +121,17 @@ public class MainController : MonoBehaviour
 
             case MainMenu.ButtonType.Exit:
                 Application.Quit();
+                break;
+
+            case MainMenu.ButtonType.Save:
+                state = new GameState(grid.GetCells(), sceneUI.Points.Value);
+                GameSaver.Save(state);
+                break;
+
+            case MainMenu.ButtonType.Load:
+                state = GameSaver.Load();
+                sceneUI.Points.Value = state.Points;
+                grid.SetState(state);
                 break;
 
 

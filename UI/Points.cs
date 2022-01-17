@@ -30,6 +30,6 @@ public class Points : MonoBehaviour
     void Start()
     {
         Value = 0;
-        TextPlayerPoints.text = "Очки:";
+        TextPlayerPoints.text = "Счёт:";
     }
 }

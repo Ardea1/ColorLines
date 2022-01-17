@@ -21,7 +21,7 @@ public enum CellType
 public class DebugGrid : MonoBehaviour
 {
 
-    private const int SIZE = 9;
+    public const int SIZE = 9;
 
     [Header("Spheres Prefabs")]
     [SerializeField]
@@ -46,6 +46,11 @@ public class DebugGrid : MonoBehaviour
     private GameObject yellowSphere;
 
     private CellType[,] cells;
+
+    public CellType[,] GetCells()
+    {
+        return cells;
+    }
 
     /// <summary>
     /// Даннй метод нужен, чтобы соотнести координаты с координатами из мира игры
@@ -448,5 +453,77 @@ public class DebugGrid : MonoBehaviour
         {
             GameObject.Destroy(item.gameObject);
         }
+    }
+
+    /// <summary>
+    /// Метод, для восстановления поля и прогресса игрока,
+    /// после загрузки файла
+    /// </summary>
+    public void SetState(GameState state)
+    {
+        Clear();
+        cells = state.Cells;
+
+        for (int i = 0; i < SIZE; i++)
+        {
+            for (int j = 0; j < SIZE; j++)
+            {
+                CellType cellType = cells[j, i];
+
+                if (cellType != CellType.Empty)
+                {
+
+                    GameObject prefab = null;
+
+                    switch (cellType)
+                    {
+                        case CellType.Red:
+                            prefab = redSphere;
+                            break;
+                        case CellType.Blue:
+                            prefab = blueSphere;
+                            break;
+                        case CellType.Green:
+                            prefab = greenSphere;
+                            break;
+                        case CellType.LightBlue:
+                            prefab = lightblueSphere;
+                            break;
+                        case CellType.Orange:
+                            prefab = orangeSphere;
+                            break;
+                        case CellType.Violet:
+                            prefab = violetSphere;
+                            break;
+                        case CellType.Yellow:
+                            prefab = yellowSphere;
+                            break;
+                    }
+
+                    Vector3 pos = ToWorldCoords(new Vector2Int(j, i));
+                    Instantiate(prefab, pos, Quaternion.identity);
+                }
+            }
+        }
+    }
+}
+
+[System.Serializable]
+public class GameState
+{
+    public int Points;
+    public CellType[,] Cells;
+
+    // Создаём конструктор
+    public GameState(CellType[,] cells, int points)
+    {
+        Points = points;
+        Cells = cells;
+    }
+
+    public GameState()
+    {
+        Points = 0;
+        Cells = new CellType[DebugGrid.SIZE, DebugGrid.SIZE];
     }
 }
