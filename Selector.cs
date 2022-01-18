@@ -7,7 +7,6 @@ using System.Collections.Generic;
 /// </summary>
 public class Selector : MonoBehaviour
 {
-
     public event System.Action<Sphere, Cell> OnSelected;
 
     [SerializeField]
@@ -56,7 +55,7 @@ public class Selector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -73,6 +72,7 @@ public class Selector : MonoBehaviour
             if (sphere != null)
             {
                 selected = sphere;
+                AudioManager.PlaySound(AudioManager.GetClipClick());
             }
 
             else
@@ -85,8 +85,8 @@ public class Selector : MonoBehaviour
 
                     if (cell != null)
                         OnSelected?.Invoke(selected, cell);
-
                     selected = null;
+                    AudioManager.PlaySound(AudioManager.GetClipClick());
                 }
             }
         }

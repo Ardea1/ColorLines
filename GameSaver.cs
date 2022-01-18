@@ -29,6 +29,6 @@ public static class GameSaver
             return state;
         }
 
-        return new GameState();
+        return null;
     }
 }

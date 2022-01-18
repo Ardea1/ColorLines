@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
+using DG.Tweening.Plugins.Core.PathCore;
 
 public class Sphere : MonoBehaviour
 {
@@ -10,12 +13,15 @@ public class Sphere : MonoBehaviour
     /// </summary>
     public event System.Action<Sphere> OnMoveComplete;
 
+    private TweenerCore<Vector3, Path, PathOptions> moveTween;
+    private TweenerCore<Vector3, Vector3, VectorOptions> scaleTween;
+
     /// <summary>
     /// Метод для движения шарика
     /// </summary>
     public void Move(List<Vector3> path)
     {
-        transform.DOPath(path.ToArray(), path.Count * 0.15f).OnComplete(() => OnMoveComplete?.Invoke(this));
+        moveTween = transform.DOPath(path.ToArray(), path.Count * 0.1f).OnComplete(() => OnMoveComplete?.Invoke(this));
     }
 
     /// <summary>
@@ -23,7 +29,7 @@ public class Sphere : MonoBehaviour
     /// </summary>
     public void Destroy()
     {
-        transform.DOScale(0.1f, 0.25f).OnComplete(() =>
+        scaleTween = transform.DOScale(0.1f, 0.25f).OnComplete(() =>
         {
             GameObject.Destroy(gameObject);
         });
@@ -33,5 +39,11 @@ public class Sphere : MonoBehaviour
     void Start()
     {
 
+    }
+
+    private void OnDestroy()
+    {
+        moveTween?.Kill();
+        scaleTween.Kill();
     }
 }

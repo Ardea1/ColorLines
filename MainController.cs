@@ -130,8 +130,17 @@ public class MainController : MonoBehaviour
 
             case MainMenu.ButtonType.Load:
                 state = GameSaver.Load();
-                sceneUI.Points.Value = state.Points;
-                grid.SetState(state);
+
+                if (state != null)
+                {
+                    stepData?.Cell.Highlight(false);
+                    sceneUI.Points.Value = state.Points;
+                    grid.SetState(state);
+                }
+                else
+                {
+                    Debug.LogError("State is incorrect");
+                }
                 break;
 
 

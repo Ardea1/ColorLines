@@ -414,7 +414,7 @@ public class DebugGrid : MonoBehaviour
             if (destroyed.Contains(spherePos))
             {
                 sphere.Destroy();
-
+                AudioManager.PlaySound(AudioManager.GetClipBang());
                 // Обнуляем клетку там, где мы удалили сферу
                 cells[spherePos.x, spherePos.y] = CellType.Empty;
             }
