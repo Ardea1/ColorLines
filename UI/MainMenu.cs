@@ -5,8 +5,8 @@ using UnityEngine;
 
 
 /// <summary>
-/// Класс, содержащий события
-/// при нажатии на кнопки
+/// Класс, содержащий кнопки
+/// и методы для отображения панелей Справка и Помощь
 /// </summary>
 public class MainMenu : MonoBehaviour
 {
@@ -19,7 +19,8 @@ public class MainMenu : MonoBehaviour
         Help,
         Exit,
         Ok,
-        Ok1
+        Ok1,
+        Mute
     }
 
     public event System.Action<ButtonType> OnClick;
@@ -56,6 +57,9 @@ public class MainMenu : MonoBehaviour
 
     [SerializeField]
     private CanvasGroup infoPanel;
+
+    [SerializeField]
+    private MenuButton muteButton;
 
     /// <summary>
     /// Панель с правилами игры
@@ -103,6 +107,13 @@ public class MainMenu : MonoBehaviour
 
         okButton.OnClick += OkButton_OnClick;
         ok1Button.OnClick += Ok1Button_OnClick;
+
+        muteButton.OnClick += MuteButton_OnClick;
+    }
+
+    private void MuteButton_OnClick(MenuButton button)
+    {
+        OnClick?.Invoke(ButtonType.Mute);
     }
 
     private void Ok1Button_OnClick(MenuButton button)

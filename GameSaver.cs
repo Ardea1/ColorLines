@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
+/// <summary>
+/// Класс, содержащий методы сохранения
+/// и загрузки игры
+/// </summary>
 public static class GameSaver
 {
     private static string Path
@@ -14,12 +18,14 @@ public static class GameSaver
         }
     }
 
+    // Метод сохранения
     public static void Save(GameState state)
     {
         var json = JsonConvert.SerializeObject(state);
         File.WriteAllText(Path, json);
     }
 
+    // Метод загрузки
     public static GameState Load()
     {
         if(File.Exists(Path))

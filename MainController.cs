@@ -95,6 +95,10 @@ public class MainController : MonoBehaviour
 
         switch (buttonType)
         {
+            //case MainMenu.ButtonType.Mute:
+
+            //    break;
+
             case MainMenu.ButtonType.New:
                 NewGame();
                 break;

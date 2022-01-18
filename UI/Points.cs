@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Класс для отображения Счёта игрока
+/// </summary>
 public class Points : MonoBehaviour
 {
+    // Количество очков
     [SerializeField]
     private Text text;
 
