@@ -72,6 +72,8 @@ public class Selector : MonoBehaviour
             if (sphere != null)
             {
                 selected = sphere;
+
+                // Включаем звук клика
                 AudioManager.PlaySound(AudioManager.GetClipClick());
             }
 
@@ -86,6 +88,7 @@ public class Selector : MonoBehaviour
                     if (cell != null)
                         OnSelected?.Invoke(selected, cell);
                     selected = null;
+                    // Включаем звук клика
                     AudioManager.PlaySound(AudioManager.GetClipClick());
                 }
             }
